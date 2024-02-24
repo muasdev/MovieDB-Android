@@ -1,8 +1,23 @@
+import com.android.build.api.variant.BuildConfigField
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+}
+
+androidComponents{
+    onVariants {
+        it.buildConfigFields.put(
+            "API_KEY", BuildConfigField(
+                type = "String",
+                value = gradleLocalProperties(rootDir).getProperty("API_KEY"),
+                comment = null
+            )
+        )
+    }
 }
 
 android {
@@ -37,6 +52,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

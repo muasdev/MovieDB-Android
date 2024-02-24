@@ -1,6 +1,8 @@
 package com.muasdev.moviedb_android.data.repository
 
 import com.muasdev.moviedb_android.data.Resource
+import com.muasdev.moviedb_android.data.mapper.DiscoverMoviesMapperToDomain
+import com.muasdev.moviedb_android.data.mapper.GenresMapperToDomain
 import com.muasdev.moviedb_android.data.remote.RemoteMoviesSource
 import com.muasdev.moviedb_android.data.remote.utils.handleHttpException
 import com.muasdev.moviedb_android.domain.model.discover.DiscoverMovies
@@ -19,7 +21,8 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun getAllGenresForMovie(): Flow<Resource<Genres>> = flow {
         emit(Resource.Loading())
         try {
-            remoteMoviesSource.getAllGenresForMovie()
+            val response = remoteMoviesSource.getAllGenresForMovie()
+            GenresMapperToDomain().mapFrom(response)
         } catch (e: HttpException) {
             val errorMessage = e.handleHttpException()
             emit(Resource.Error(message = errorMessage))
@@ -34,7 +37,8 @@ class MovieRepositoryImpl @Inject constructor(
         return flow {
             emit(Resource.Loading())
             try {
-                remoteMoviesSource.getDiscoverMovieByGenre(genreId)
+                val response = remoteMoviesSource.getDiscoverMovieByGenre(genreId)
+                DiscoverMoviesMapperToDomain().mapFrom(response)
             } catch (e: HttpException) {
                 val errorMessage = e.handleHttpException()
                 emit(Resource.Error(message = errorMessage))

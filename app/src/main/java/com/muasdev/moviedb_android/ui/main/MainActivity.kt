@@ -1,4 +1,4 @@
-package com.muasdev.moviedb_android.ui
+package com.muasdev.moviedb_android.ui.main
 
 import android.os.Bundle
 import android.widget.Toast
@@ -16,9 +16,9 @@ import com.muasdev.moviedb_android.databinding.ActivityMainBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
 import com.muasdev.moviedb_android.domain.model.genres.Genre
 import com.muasdev.moviedb_android.domain.model.genres.Genres
-import com.muasdev.moviedb_android.ui.adapter.GenresAdapter
-import com.muasdev.moviedb_android.ui.adapter.PagingDiscoverMoviesAdapter
-import com.muasdev.moviedb_android.ui.adapter.PagingLoadStateAdapter
+import com.muasdev.moviedb_android.ui.main.adapter.GenresAdapter
+import com.muasdev.moviedb_android.ui.main.adapter.PagingDiscoverMoviesAdapter
+import com.muasdev.moviedb_android.ui.main.adapter.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

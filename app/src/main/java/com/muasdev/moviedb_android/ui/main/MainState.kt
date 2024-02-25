@@ -1,4 +1,4 @@
-package com.muasdev.moviedb_android.ui
+package com.muasdev.moviedb_android.ui.main
 
 import androidx.paging.PagingData
 import com.muasdev.moviedb_android.domain.model.discover.Result

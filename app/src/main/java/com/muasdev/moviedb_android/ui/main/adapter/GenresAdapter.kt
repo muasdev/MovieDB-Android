@@ -1,4 +1,4 @@
-package com.muasdev.moviedb_android.ui.adapter
+package com.muasdev.moviedb_android.ui.main.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater

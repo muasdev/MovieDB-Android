@@ -1,4 +1,4 @@
-package com.muasdev.moviedb_android.ui.adapter
+package com.muasdev.moviedb_android.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ class PagingDiscoverMoviesAdapter:
 
         fun bind(item: Result) = with(binding) {
             tvTitle.text = item.title
-            ivMovie.load("${IMAGE_URL}/${item.posterPath}")
+            ivMovie.load("$IMAGE_URL/${item.posterPath}")
         }
     }
 

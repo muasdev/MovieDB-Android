@@ -11,8 +11,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.muasdev.moviedb_android.databinding.ActivityMainBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
+import com.muasdev.moviedb_android.domain.model.genres.Genre
+import com.muasdev.moviedb_android.domain.model.genres.Genres
+import com.muasdev.moviedb_android.ui.adapter.GenresAdapter
 import com.muasdev.moviedb_android.ui.adapter.PagingDiscoverMoviesAdapter
 import com.muasdev.moviedb_android.ui.adapter.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    lateinit var pagingAdapter: PagingDiscoverMoviesAdapter
+    private lateinit var pagingAdapter: PagingDiscoverMoviesAdapter
+    private lateinit var genresAdapter: GenresAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +39,22 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val listGenre = listOf("28", "15", "50", "123")
-
-        binding.apply {
-            btnTest.setOnClickListener {
-                viewModel.onEvent(MainEvent.FilterMoviesByGenre(listGenre.randomOrNull()))
-            }
-        }
-
         pagingAdapter = PagingDiscoverMoviesAdapter()
+        genresAdapter = GenresAdapter { genre, _ ->
+            viewModel.onEvent(
+                MainEvent.FilterMoviesByGenre(
+                    genreId = genre.id?.let { id -> if (id == 0) null else "$id" }
+                )
+            )
+        }
+        binding.apply {
+            rvGenres.layoutManager = LinearLayoutManager(
+                this@MainActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            rvGenres.adapter = genresAdapter
+        }
 
         observeState()
         observePagingLoadState()
@@ -66,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (state.genres != null) {
-                        //
+                        handleGenres(state.genres)
                     }
                     if (!state.errorMessage.isNullOrEmpty()) {
                         binding.apply {
@@ -80,6 +92,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun handleGenres(genres: Genres) {
+        val allGenresItem = Genre(id = 0, name = "All Genre")
+        val filteredGenres = genres.genres.orEmpty().filterNotNull()
+        val updatedGenresList = mutableListOf(allGenresItem)
+        updatedGenresList.addAll(filteredGenres)
+        genresAdapter.submitList(updatedGenresList)
     }
 
     private suspend fun handleDiscoverMovie(discoverMoviesPaging: PagingData<Result>) {

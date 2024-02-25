@@ -36,7 +36,6 @@ class MainViewModel @Inject constructor(
 
     init {
         getAllGenresForMovie()
-        getPagingDiscoverMovies()
     }
 
     private fun getAllGenresForMovie() {
@@ -55,6 +54,7 @@ class MainViewModel @Inject constructor(
                             isGenresLoading = false,
                             errorMessage = null,
                         )
+                        getPagingDiscoverMovies()
                     }
                     is Resource.Error -> {
                         _state.value = state.value.copy(

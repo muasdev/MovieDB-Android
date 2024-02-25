@@ -8,7 +8,7 @@ class GetDiscoverMoviesPagingByGenreUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(page: Int?, genreId: String?) =
         moviePagingRepository.getPagingDiscoverMovieByGenre(
-            page = page,
+            page = if (page == 0) null else page,
             genreId = genreId
         )
 }

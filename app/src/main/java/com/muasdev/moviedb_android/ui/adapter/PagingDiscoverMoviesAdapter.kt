@@ -10,7 +10,7 @@ import com.muasdev.moviedb_android.databinding.ItemListDiscoverMoviesBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
 
 class PagingDiscoverMoviesAdapter:
-    PagingDataAdapter<Result, PagingDiscoverMoviesAdapter.EpisodeViewHolder>(EpisodeComparator) {
+    PagingDataAdapter<Result, PagingDiscoverMoviesAdapter.EpisodeViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         EpisodeViewHolder(
@@ -40,7 +40,7 @@ class PagingDiscoverMoviesAdapter:
         }
     }
 
-    object EpisodeComparator : DiffUtil.ItemCallback<Result>() {
+    object DiffCallback : DiffUtil.ItemCallback<Result>() {
         override fun areItemsTheSame(oldItem: Result, newItem: Result) =
             oldItem.id == newItem.id
 

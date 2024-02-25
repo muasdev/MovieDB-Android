@@ -20,7 +20,7 @@ class MovieRepositoryImpl @Inject constructor(
         emit(Resource.Loading())
         try {
             val response = remoteMoviesSource.getAllGenresForMovie()
-            GenresMapperToDomain().mapFrom(response)
+            emit(Resource.Success(GenresMapperToDomain().mapFrom(response)))
         } catch (e: HttpException) {
             val errorMessage = e.handleHttpException()
             emit(Resource.Error(message = errorMessage))

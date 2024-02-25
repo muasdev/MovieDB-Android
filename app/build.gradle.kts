@@ -83,6 +83,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     ksp("com.google.dagger:hilt-android-compiler:2.50")
 
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("io.coil-kt:coil:2.5.0")
+
     val roomVersion = "2.6.1"
 
     implementation("androidx.room:room-runtime:$roomVersion")

@@ -1,6 +1,8 @@
 package com.muasdev.moviedb_android.di
 
+import com.muasdev.moviedb_android.data.paging.MoviePagingRepositoryImpl
 import com.muasdev.moviedb_android.data.repository.MovieRepositoryImpl
+import com.muasdev.moviedb_android.domain.repository.MoviePagingRepository
 import com.muasdev.moviedb_android.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
@@ -15,5 +17,9 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindMovieRepository(movieRepositoryImpl: MovieRepositoryImpl): MovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMoviePagingRepository(moviePagingRepositoryImpl: MoviePagingRepositoryImpl): MoviePagingRepository
 
 }

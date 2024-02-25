@@ -11,7 +11,8 @@ interface MovieDbApiServices {
     suspend fun getAllGenresForMovieFromRemote(): GenresDto
 
     @GET("discover/movie")
-    suspend fun getDiscoverMovieByGenreFromRemote(
+    suspend fun getPagingDiscoverMovieByGenreFromRemote(
+        @Query("page") page: Int? = null,
         @Query("with_genres") withGenres: String? = null,
     ): DiscoverMoviesDto
 

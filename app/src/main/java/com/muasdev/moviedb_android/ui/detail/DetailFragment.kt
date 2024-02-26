@@ -26,6 +26,7 @@ import com.muasdev.moviedb_android.utils.DateConverter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
@@ -62,6 +63,9 @@ class DetailFragment : Fragment() {
                         movieId = movieId
                     )
                 findNavController().navigate(action)
+            }
+            toolbar.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
     }

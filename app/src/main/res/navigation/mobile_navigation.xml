@@ -39,5 +39,9 @@
             android:name="movieId"
             android:defaultValue="0"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_movieReviewsFragment_pop"
+            app:popUpTo="@id/movieReviewsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

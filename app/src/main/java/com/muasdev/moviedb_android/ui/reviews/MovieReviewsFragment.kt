@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -32,7 +33,6 @@ class MovieReviewsFragment : Fragment() {
     private val viewModel: MovieReviewsViewModel by activityViewModels()
     private lateinit var pagingAdapter: PagingMovieReviewsAdapter
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -48,11 +48,17 @@ class MovieReviewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieId = args.movieId
 
+        val movieId = args.movieId
         viewModel.onEvent(MovieReviewsEvent.LoadMovieReviews(movieId))
 
         pagingAdapter = PagingMovieReviewsAdapter()
+
+        binding.apply {
+            toolbar.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
 
         observeState()
         observePagingLoadState()

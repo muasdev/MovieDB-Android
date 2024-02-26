@@ -17,7 +17,6 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muasdev.moviedb_android.R
 import com.muasdev.moviedb_android.databinding.FragmentHomeBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
 import com.muasdev.moviedb_android.domain.model.genres.Genre
@@ -57,8 +56,13 @@ class HomeFragment : Fragment() {
 
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
-        pagingAdapter = PagingDiscoverMoviesAdapter {
-            findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+        pagingAdapter = PagingDiscoverMoviesAdapter { id ->
+            val action = id?.let {
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                    movieId = it
+                )
+            }
+            action?.let { findNavController().navigate(it) }
         }
         viewModel.getAllGenresForMovie()
         genresAdapter = GenresAdapter { genre, _ ->

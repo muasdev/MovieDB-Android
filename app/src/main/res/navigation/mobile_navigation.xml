@@ -12,11 +12,32 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@animator/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.muasdev.moviedb_android.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailFragment_to_userReviewsFragment"
+            app:destination="@id/userReviewsFragment"
+            app:enterAnim="@animator/nav_default_enter_anim" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/userReviewsFragment"
+        android:name="com.muasdev.moviedb_android.ui.reviews.UserReviewsFragment"
+        android:label="User Reviews"
+        tools:layout="@layout/fragment_user_reviews">
+        <argument
+            android:name="movieId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 </navigation>

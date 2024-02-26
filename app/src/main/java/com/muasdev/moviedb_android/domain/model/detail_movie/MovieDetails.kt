@@ -11,5 +11,4 @@ data class MovieDetails(
     val status: String? = null,
     val tagline: String? = null,
     val title: String? = null,
-    val movieTrailer: MovieTrailer? = null,
 )

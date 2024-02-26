@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.muasdev.moviedb_android.databinding.ItemListDiscoverMoviesBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
+import com.muasdev.moviedb_android.utils.Constant
 
 class PagingDiscoverMoviesAdapter(
     private val onItemClicked: (Int?) -> Unit
@@ -36,7 +37,7 @@ class PagingDiscoverMoviesAdapter(
 
         fun bind(item: Result) = with(binding) {
             tvTitle.text = item.title
-            ivMovie.load("$IMAGE_URL/${item.posterPath}")
+            ivMovie.load("${Constant.IMAGE_URL}/${item.posterPath}")
         }
     }
 
@@ -57,7 +58,6 @@ class PagingDiscoverMoviesAdapter(
     }
 
     companion object {
-        const val IMAGE_URL = "https://image.tmdb.org/t/p/original"
         const val VIEW_TYPE_CONTENT_ITEM = 1
         const val VIEW_TYPE_FOOTER_ITEM = 0
         const val SPAN_SIZE_CONTENT_ITEM = 1

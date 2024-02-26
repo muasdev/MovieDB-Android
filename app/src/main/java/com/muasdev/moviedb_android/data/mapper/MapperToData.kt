@@ -16,7 +16,7 @@ import com.muasdev.moviedb_android.data.remote.dto.movie_details.MovieDetailsDto
 import com.muasdev.moviedb_android.data.remote.dto.movie_reviews.MovieReviewsDto
 import com.muasdev.moviedb_android.data.remote.dto.movie_videos.MovieVideosDto
 import com.muasdev.moviedb_android.data.model.movie_reviews.Result as MovieReviewResult
-import com.muasdev.moviedb_android.data.model.movie_videos.Result as MovieVideosResult
+import com.muasdev.moviedb_android.data.model.movie_videos.MovieVideoResultData as MovieVideosResult
 import com.muasdev.moviedb_android.data.remote.dto.movie_reviews.Result as MovieReviewResultDto
 import com.muasdev.moviedb_android.data.remote.dto.movie_videos.Result as MovieVideosResultDto
 
@@ -118,6 +118,6 @@ fun MovieVideosDto.asDataModel(): MovieVideos {
 
 fun MovieVideosResultDto.asDataModel(): MovieVideosResult{
     return MovieVideosResult(
-        id = id, key = key, name = name
+        id = id, key = key, name = name, type = type
     )
 }

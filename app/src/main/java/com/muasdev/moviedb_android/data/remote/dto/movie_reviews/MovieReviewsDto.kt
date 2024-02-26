@@ -6,9 +6,9 @@ data class MovieReviewsDto(
     @SerializedName("id")
     val id: Int? = null,
     @SerializedName("page")
-    val page: Int? = null,
+    val page: Int,
     @SerializedName("results")
-    val results: List<Result?>? = null,
+    val results: List<Result>,
     @SerializedName("total_pages")
     val totalPages: Int? = null,
     @SerializedName("total_results")

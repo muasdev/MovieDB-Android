@@ -5,13 +5,17 @@ import com.muasdev.moviedb_android.data.model.discover.Result
 import com.muasdev.moviedb_android.data.model.genres.Genre
 import com.muasdev.moviedb_android.data.model.genres.Genres
 import com.muasdev.moviedb_android.data.model.movie_details.MovieDetails
+import com.muasdev.moviedb_android.data.model.movie_reviews.MovieReviewResultData
+import com.muasdev.moviedb_android.data.model.movie_reviews.MovieReviews
 import com.muasdev.moviedb_android.data.model.movie_videos.MovieVideoResultData
 import com.muasdev.moviedb_android.data.model.movie_videos.MovieVideos
+import com.muasdev.moviedb_android.domain.model.movie_reviews.MovieReviewResults
 import com.muasdev.moviedb_android.domain.model.movie_videos.MovieVideoResult
 import com.muasdev.moviedb_android.domain.model.detail_movie.MovieDetails as MovieDetailsDomain
 import com.muasdev.moviedb_android.domain.model.discover.Result as ResultMovieDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genre as GenreDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genres as GenresDomain
+import com.muasdev.moviedb_android.domain.model.movie_reviews.MovieReviews as MovieReviewsDomain
 import com.muasdev.moviedb_android.domain.model.movie_videos.MovieVideos as MovieVideosDomain
 
 /*mapper for genres*/
@@ -77,5 +81,23 @@ fun MovieVideos.asDomainModel(): MovieVideosDomain {
 fun MovieVideoResultData.asDomainModel(): MovieVideoResult {
     return MovieVideoResult(
         id = id, key = key, name = name, type = type
+    )
+}
+
+fun MovieReviews.asDomainModel(): MovieReviewsDomain {
+    return MovieReviewsDomain(
+        id = id,
+        page = page,
+        results = results?.map {
+            it?.let { it.asDomainModel() }
+        },
+        totalPages = totalPages,
+        totalResults = totalResults
+    )
+}
+
+fun MovieReviewResultData.asDomainModel(): MovieReviewResults {
+    return MovieReviewResults(
+        author = author, content = content, createdAt = createdAt, id = id, avatarPath = avatarPath
     )
 }

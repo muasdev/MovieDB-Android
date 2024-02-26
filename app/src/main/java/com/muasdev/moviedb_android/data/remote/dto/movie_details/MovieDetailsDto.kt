@@ -29,10 +29,6 @@ data class MovieDetailsDto(
     val posterPath: String? = null,
     @SerializedName("release_date")
     val releaseDate: String? = null,
-    @SerializedName("revenue")
-    val revenue: Int? = null,
-    @SerializedName("runtime")
-    val runtime: Int? = null,
     @SerializedName("status")
     val status: String? = null,
     @SerializedName("tagline")

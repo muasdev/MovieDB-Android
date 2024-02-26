@@ -25,16 +25,16 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_detailFragment_to_userReviewsFragment"
-            app:destination="@id/userReviewsFragment"
+            android:id="@+id/action_detailFragment_to_movieReviewsFragment"
+            app:destination="@id/movieReviewsFragment"
             app:enterAnim="@animator/nav_default_enter_anim" />
 
     </fragment>
     <fragment
-        android:id="@+id/userReviewsFragment"
-        android:name="com.muasdev.moviedb_android.ui.reviews.UserReviewsFragment"
-        android:label="User Reviews"
-        tools:layout="@layout/fragment_user_reviews">
+        android:id="@+id/movieReviewsFragment"
+        android:name="com.muasdev.moviedb_android.ui.reviews.MovieReviewsFragment"
+        android:label="Movie Reviews"
+        tools:layout="@layout/fragment_movie_reviews">
         <argument
             android:name="movieId"
             android:defaultValue="0"

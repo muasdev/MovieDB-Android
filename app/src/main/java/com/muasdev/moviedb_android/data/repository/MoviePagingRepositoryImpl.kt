@@ -4,8 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.muasdev.moviedb_android.data.paging.PageKeyedDiscoverMoviePagingSource
+import com.muasdev.moviedb_android.data.paging.ReviewsMoviePagingSource
 import com.muasdev.moviedb_android.data.remote.api.MovieDbApiServices
 import com.muasdev.moviedb_android.domain.model.discover.Result
+import com.muasdev.moviedb_android.domain.model.movie_reviews.MovieReviewResults
 import com.muasdev.moviedb_android.domain.repository.MoviePagingRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -26,6 +28,16 @@ class MoviePagingRepositoryImpl @Inject constructor(
         PageKeyedDiscoverMoviePagingSource(
             apiServices = apiServices,
             genreId = genreId
+        )
+    }.flow
+
+    override suspend fun getPagingUserReviews(movieId: Int): Flow<PagingData<MovieReviewResults>> = Pager(
+        initialKey = INITIAL_PAGE,
+        config = PagingConfig(PAGE_SIZE),
+    ) {
+        ReviewsMoviePagingSource(
+            apiServices = apiServices,
+            movieId = movieId
         )
     }.flow
 }

@@ -58,7 +58,7 @@ class DetailFragment : Fragment() {
         binding.apply {
             tvReviewsTitle.setOnClickListener {
                 val action =
-                    DetailFragmentDirections.actionDetailFragmentToUserReviewsFragment(
+                    DetailFragmentDirections.actionDetailFragmentToMovieReviewsFragment(
                         movieId = movieId
                     )
                 findNavController().navigate(action)
@@ -101,10 +101,10 @@ class DetailFragment : Fragment() {
         binding.apply {
             ivBackdrop.load("${Constant.IMAGE_URL}/${data.backdropPath}")
             ivPoster.load("${Constant.IMAGE_URL}/${data.posterPath}")
-            tvTitle.text = data.title
-            tvStatus.text = data.status
+            tvTitle.text = "Title : \n${data.title}"
+            tvStatus.text = "Status : \n${data.status}"
             tvOverview.text = data.overview
-            tvReleaseDate.text = data.releaseDate?.let { DateConverter.convertDate(it) }
+            tvReleaseDate.text = "Release Date : \n${data.releaseDate?.let { DateConverter.convertDate(it) }}"
         }
     }
 

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -62,7 +61,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun getMovieVideos(movieId: Int) {
+    private fun getMovieVideos(movieId: Int) {
         viewModelScope.launch {
             val movieVideos = getMovieVideosUseCase(movieId)
             movieVideos.onEach { result ->
@@ -75,7 +74,7 @@ class DetailViewModel @Inject constructor(
                     }
                     is Resource.Success -> {
                         val trailers: List<MovieTrailer> = result.data?.results
-                            ?.filter { it?.type == "Trailer" }
+                            ?.filter { it?.type == TYPE_TRAILER_MOVIE }
                             ?.map {
                                 MovieTrailer(
                                     id = it?.id,
@@ -84,7 +83,6 @@ class DetailViewModel @Inject constructor(
                                 )
                             } ?: emptyList()
                         val movieTrailer: MovieTrailer? = if (trailers.isNotEmpty()) trailers[0] else null
-                        Timber.d("trailers: $trailers")
                         _state.value = DetailState(
                             isLoading = false,
                             movieTrailer = movieTrailer,
@@ -100,5 +98,9 @@ class DetailViewModel @Inject constructor(
                 }
             }.launchIn(this)
         }
+    }
+
+    companion object {
+        const val TYPE_TRAILER_MOVIE = "Trailer"
     }
 }

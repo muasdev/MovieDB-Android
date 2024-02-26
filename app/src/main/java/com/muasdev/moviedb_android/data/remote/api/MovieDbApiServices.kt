@@ -33,7 +33,6 @@ interface MovieDbApiServices {
     @GET("movie/{movieId}/reviews")
     suspend fun getMovieReviews(
         @Path("movieId") movieId: Int,
-        @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1
     ): MovieReviewsDto
 

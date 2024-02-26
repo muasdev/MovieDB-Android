@@ -1,11 +1,9 @@
 package com.muasdev.moviedb_android.data.mapper
 
 import com.muasdev.moviedb_android.common.Mapper
-import com.muasdev.moviedb_android.data.model.discover.DiscoverMovies
 import com.muasdev.moviedb_android.data.model.discover.Result
 import com.muasdev.moviedb_android.data.model.genres.Genre
 import com.muasdev.moviedb_android.data.model.genres.Genres
-import com.muasdev.moviedb_android.domain.model.discover.DiscoverMovies as DiscoverMoviesDomain
 import com.muasdev.moviedb_android.domain.model.discover.Result as ResultMovieDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genre as GenreDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genres as GenresDomain
@@ -28,23 +26,6 @@ class GenreMapperToDomain: Mapper<Genre, GenreDomain> {
         return GenreDomain(
             id = from.id,
             name = from.name
-        )
-    }
-}
-
-/*mapper for discover movie*/
-class DiscoverMoviesMapperToDomain: Mapper<DiscoverMovies, DiscoverMoviesDomain> {
-    override fun mapFrom(from: DiscoverMovies): DiscoverMoviesDomain {
-        return DiscoverMoviesDomain(
-            page = from.page,
-            totalPages = from.totalPages,
-            totalResults = from.totalResults,
-            results = if (from.results.isNullOrEmpty()) emptyList() else
-                from.results.map {
-                    it?.let {
-                        ResultMoviesMapperToDomain().mapFrom(it)
-                    }
-                }
         )
     }
 }

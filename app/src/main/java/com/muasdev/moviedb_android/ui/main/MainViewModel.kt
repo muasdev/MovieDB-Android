@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getAllGenresForMovies: GetAllGenresForMoviesUseCase,
-    private val getDiscoverMoviesByGenreUseCase: GetDiscoverMoviesPagingByGenreUseCase
+    private val getDiscoverMoviesByGenreUseCase: GetDiscoverMoviesPagingByGenreUseCase,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(MainState())
@@ -34,11 +34,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    init {
-        getAllGenresForMovie()
-    }
-
-    private fun getAllGenresForMovie() {
+    fun getAllGenresForMovie() {
         viewModelScope.launch {
             getAllGenresForMovies().onEach { result ->
                 when (result) {
@@ -71,14 +67,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             handleDiscoverMoviesLoading()
             delay(DELAY_DURATION_MILLIS)
-            getDiscoverMoviesByGenreUseCase.invoke(page, genreId)
+            getDiscoverMoviesByGenreUseCase.invoke(page, genreId, viewModelScope)
                 .onEach { data ->
                     handleDiscoverMoviesSuccess(data)
                 }
                 .catch {
                     handleDiscoverMoviesError(it.message)
-                }
-                .launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
         }
     }
 

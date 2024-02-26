@@ -9,7 +9,9 @@ import coil.load
 import com.muasdev.moviedb_android.databinding.ItemListDiscoverMoviesBinding
 import com.muasdev.moviedb_android.domain.model.discover.Result
 
-class PagingDiscoverMoviesAdapter:
+class PagingDiscoverMoviesAdapter(
+    private val onItemClicked: (Int?) -> Unit
+):
     PagingDataAdapter<Result, PagingDiscoverMoviesAdapter.EpisodeViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -20,7 +22,13 @@ class PagingDiscoverMoviesAdapter:
         )
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        val items = getItem(position)
+        items?.let { item ->
+            holder.bind(item)
+            holder.itemView.setOnClickListener {
+                onItemClicked(item.id)
+            }
+        }
     }
 
     inner class EpisodeViewHolder(private val binding: ItemListDiscoverMoviesBinding) :

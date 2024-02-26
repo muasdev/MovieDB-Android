@@ -4,6 +4,9 @@ import com.muasdev.moviedb_android.common.Mapper
 import com.muasdev.moviedb_android.data.model.discover.Result
 import com.muasdev.moviedb_android.data.model.genres.Genre
 import com.muasdev.moviedb_android.data.model.genres.Genres
+import com.muasdev.moviedb_android.data.model.movie_details.MovieDetails
+import com.muasdev.moviedb_android.domain.model.detail_movie.MovieTrailer
+import com.muasdev.moviedb_android.domain.model.detail_movie.MovieDetails as MovieDetailsDomain
 import com.muasdev.moviedb_android.domain.model.discover.Result as ResultMovieDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genre as GenreDomain
 import com.muasdev.moviedb_android.domain.model.genres.Genres as GenresDomain
@@ -43,4 +46,20 @@ class ResultMoviesMapperToDomain : Mapper<Result, ResultMovieDomain> {
         )
     }
 
+}
+
+fun MovieDetails.asDomainModel(movieTrailer: MovieTrailer): MovieDetailsDomain {
+    return MovieDetailsDomain(
+        backdropPath = backdropPath,
+        homepage = homepage,
+        id = id,
+        originalTitle = originalTitle,
+        overview = overview,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        status = status,
+        tagline = tagline,
+        title = title,
+        movieTrailer = movieTrailer
+    )
 }

@@ -29,11 +29,6 @@ class DetailViewModel @Inject constructor(
             is DetailEvent.LoadMovieDetails -> {
                 getMovieDetails(event.movieId)
             }
-            is DetailEvent.NavigateToReviewsPage -> {
-                _state.value = state.value.copy(
-                    isLoading = true
-                )
-            }
         }
     }
 
